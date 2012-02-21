@@ -1,18 +1,20 @@
-<?php 
+<?php
+namespace Amon\AmonLibs;
 
-class AmonRemote
+class Remote
 {
-
     /**
      * Make request
      *
-     * @param string $url
-     * @param array  $data
-     * @param string $refer
+     * @static
      *
-     * @return array
+     * @param        $url
+     * @param array  $data
+     * @param string $referer
+     *
+     * @return array|bool
      */
-    public static function request($url, array $data, $referer='') 
+    public static function request($url, array $data, $referer = '')
     {
 
         $params = array(
@@ -24,10 +26,9 @@ class AmonRemote
             )
         );
 
-
         $context = stream_context_create($params);
 
-        $fp = fopen($url, 'rb', false, $context);	 
+        $fp = fopen($url, 'rb', false, $context);
 
         $response = @stream_get_contents($fp);
 
@@ -40,10 +41,10 @@ class AmonRemote
         }
 
         // split the result header from the content
-        $result  = explode("\r\n\r\n", $response, 2);
-        $header  = isset($result[0]) ? $result[0] : '';
+        $result = explode("\r\n\r\n", $response, 2);
+        $header = isset($result[0]) ? $result[0] : '';
         $content = isset($result[1]) ? $result[1] : '';
-        
+
         // return as structured array:
         return array(
             'status'  => 'ok',
