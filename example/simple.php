@@ -1,6 +1,6 @@
 <?php
 
-// Set the exception handler
+//create autoloader
 function __autoload($class)
 {
     $parts = str_replace('\\', '/', $class);
@@ -9,23 +9,14 @@ function __autoload($class)
     require $fileName;
 }
 
-//require dirname(__FILE__) . "/../AmonLogger.php";
 use Amon\AmonLogger as Amon;
+use Amon\Config\BaseConfig;
+use Amon\Request\Request;
 
-Amon::config(array('host'           => 'http://127.0.0.1',
-                   'port'           => 2464,
-                   'application_key'=> ''));
-
-Amon::setup_exception_handler();
-
-error_reporting(E_ALL);
-
-// Trigger exception
-$math = 1 / 0;
-
-// Logging
-Amon::log("test");
+$request = new Request(new BaseConfig());
+$amon = new Amon($request);
+$amon->log('log message');
 // Tagged logging
-Amon::log("test", array('debug', 'benchmark'));
+$amon->log("test", array('debug', 'benchmark'));
 
 ?>
