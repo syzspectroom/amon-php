@@ -61,9 +61,9 @@ class Data
                 "session"        => $session
             );
 
-            if (!empty(Amon::$controller) && !empty(Amon::$action)) {
-                $data["request"]["controller"] = Amon::$controller;
-                $data["request"]["action"] = Amon::$action;
+            if (!empty(AmonLogger::$controller) && !empty(AmonLogger::$action)) {
+                $data["request"]["controller"] = AmonLogger::$controller;
+                $data["request"]["action"] = AmonLogger::$action;
             }
 
             $params = array_merge($_GET, $_POST);
