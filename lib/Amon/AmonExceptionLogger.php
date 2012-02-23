@@ -1,12 +1,20 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: blacky
- * Date: 23.02.12
- * Time: 20:58
- * To change this template use File | Settings | File Templates.
- */
-class AmonExceptionLogger
+namespace Amon;
+
+class AmonExceptionLogger implements  Interfaces\LoggerInterface
 {
+    
+    /**
+     * @var Request
+     */
+    private $_request;
+
+    /**
+     * @param Request\RequestInterface $request
+     */
+    public function __construct(Request\RequestInterface $request)
+    {
+        $this->_request = $request;
+    }
 
 }
